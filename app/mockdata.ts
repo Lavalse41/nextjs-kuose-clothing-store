@@ -13,3 +13,22 @@ export const productType = [
   "sweaters",
   "t-shirts",
 ];
+
+export const color = [
+  { code: "#000000", name: "black" },
+  { code: "#efeede", name: "beige" },
+  { code: "#d39aa3", name: "pink" },
+  { code: "#ffffff", name: "white" },
+  { code: "", name: "stripe" },
+  { code: "#6483a6", name: "blue" },
+  { code: "#b3b3b3", name: "grey" },
+  { code: "#428259", name: "green" },
+  { code: "#886ead", name: "purple" },
+  { code: "#fce699", name: "yellow" },
+  { code: "#b3a388", name: "khaki" },
+  { code: "#ab4545", name: "red" },
+  { code: "#e28f45", name: "orange" },
+  { code: "", name: "plaid" },
+  { code: "", name: "multi" },
+  { code: "#534327", name: "brown" },
+];
