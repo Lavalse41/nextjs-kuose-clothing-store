@@ -1,0 +1,15 @@
+export const productType = [
+  "accessories",
+  "blazers",
+  "cardigans",
+  "coats",
+  "dresses",
+  "jackets",
+  "paddings",
+  "pants",
+  "set",
+  "shirts",
+  "skirts",
+  "sweaters",
+  "t-shirts",
+];
