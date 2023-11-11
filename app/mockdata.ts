@@ -19,7 +19,10 @@ export const color = [
   { code: "#efeede", name: "beige" },
   { code: "#d39aa3", name: "pink" },
   { code: "#ffffff", name: "white" },
-  { code: "", name: "stripe" },
+  {
+    src: "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699671508/kuose-images/stripe-pattern_qczgva.jpg",
+    name: "stripe",
+  },
   { code: "#6483a6", name: "blue" },
   { code: "#b3b3b3", name: "grey" },
   { code: "#428259", name: "green" },
@@ -28,7 +31,13 @@ export const color = [
   { code: "#b3a388", name: "khaki" },
   { code: "#ab4545", name: "red" },
   { code: "#e28f45", name: "orange" },
-  { code: "", name: "plaid" },
-  { code: "", name: "multi" },
+  {
+    src: "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699671508/kuose-images/plaid-pattern_ljlijt.png",
+    name: "plaid",
+  },
+  {
+    src: "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699672063/kuose-images/multi-pattern_quamxx.jpg",
+    name: "multi",
+  },
   { code: "#534327", name: "brown" },
 ];
