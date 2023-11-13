@@ -6,8 +6,14 @@ export async function GET(req: Request, res: Response) {
       .from("products")
       .select("*");
 
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return new Response(JSON.stringify(products));
   } catch (error) {
-    return new Response("Error fetching data");
+    return new Response(`Error fetching data: ${error.message}`, {
+      status: 500,
+    });
   }
 }
