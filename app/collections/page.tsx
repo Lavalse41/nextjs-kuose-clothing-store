@@ -4,9 +4,12 @@ import { productType, color as colorData } from "../mockdata";
 import SidebarCollections from "../components/SidebarCollections";
 import ListCollections from "../components/ListCollections";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Collections() {
+  const [products, setProducts] = useState([]);
+
   const product = productType.map((type, index) => (
     <li key={index} className="border border-1 border-black py-1 px-4">
       {type}
@@ -33,10 +36,17 @@ export default function Collections() {
 
   useEffect(
     () =>
-      async function getProducts() {
+      async function getProductTypes() {
         const res = await axios.get("../api/collections");
-        console.log(res.data);
+        // console.log(res.data);
+        setProductTypes(res.data);
       },
+
+    async function getProducts() {
+      const res = await axios.get("../api/collections");
+      // console.log(res.data);
+      setProducts(res.data);
+    },
     []
   );
 
@@ -67,31 +77,21 @@ export default function Collections() {
           </div>
 
           <div className="mt-12 grid grid-cols-4 gap-5">
-            <div className="flex flex-col gap-4">
-              <div className="bg-black w-full h-96"></div>
-              <div className="pl-6">Ribbon Dress</div>
-              <div className="pl-6 leading-none">3515</div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="bg-black w-full h-96"></div>
-              <div className="pl-6">Ribbon Dress</div>
-              <div className="pl-6">3515</div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="bg-black w-full h-96"></div>
-              <div className="pl-6">Ribbon Dress</div>
-              <div className="pl-6">3515</div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="bg-black w-full h-96"></div>
-              <div className="pl-6">Ribbon Dress</div>
-              <div className="pl-6">3515</div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="bg-black w-full h-96"></div>
-              <div className="pl-6">Ribbon Dress</div>
-              <div className="pl-6">3515</div>
-            </div>
+            {products.map((product) => (
+              <div key={product.id} className="flex flex-col gap-4">
+                <div className="w-full h-96">
+                  <Image
+                    src={product.images[0]}
+                    width={100}
+                    height={384}
+                    alt={product.name}
+                    layout="responsive"
+                  ></Image>
+                </div>
+                <div className="pl-6">{product.name}</div>
+                <div className="pl-6 leading-none">{product.price}</div>
+              </div>
+            ))}
           </div>
         </ListCollections>
       </div>
