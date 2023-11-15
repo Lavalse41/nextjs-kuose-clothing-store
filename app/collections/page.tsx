@@ -9,24 +9,22 @@ import Image from "next/image";
 
 export default function Collections() {
   const [products, setProducts] = useState([]);
-
-  const product = productType.map((type, index) => (
-    <li key={index} className="border border-1 border-black py-1 px-4">
-      {type}
-    </li>
-  ));
+  const [productTypes, setProductTypes] = useState([]);
 
   const colorName = colorData.map((color, index) => (
-    <li key={index} className="w-24 border border-1 border-black py-1 px-3">
+    <li
+      key={index}
+      className="w-24 border border-1 border-neutral-200 py-1 px-3"
+    >
       <div className="flex items-center">
         {color.src && (
-          <span className="w-3 h-3 rounded-full border border-1 border-black">
+          <span className="w-3 h-3 rounded-full border border-1 border-neutral-700">
             <img src={color.src}></img>
           </span>
         )}
         {color.code && (
           <span
-            className={`bg-[${color.code}] w-3 h-3 rounded-full border border-1 border-black`}
+            className={`bg-[${color.code}] w-3 h-3 rounded-full border border-1 border-neutral-700`}
           ></span>
         )}
         <span className="ml-1">{color.name}</span>
@@ -37,16 +35,20 @@ export default function Collections() {
   useEffect(
     () =>
       async function getProductTypes() {
-        const res = await axios.get("../api/collections");
+        const res = await axios.get("../api/productTypes");
         // console.log(res.data);
         setProductTypes(res.data);
       },
+    []
+  );
 
-    async function getProducts() {
-      const res = await axios.get("../api/collections");
-      // console.log(res.data);
-      setProducts(res.data);
-    },
+  useEffect(
+    () =>
+      async function getProducts() {
+        const res = await axios.get("../api/collections");
+        // console.log(res.data);
+        setProducts(res.data);
+      },
     []
   );
 
@@ -57,7 +59,16 @@ export default function Collections() {
         <SidebarCollections>
           PRODUCT TYPE
           <div className="mt-4">
-            <ul className="flex flex-wrap gap-2">{product}</ul>
+            <ul className="flex flex-wrap gap-2">
+              {productTypes.map((type) => (
+                <li
+                  key={type.id}
+                  className="capitalize border border-1 border-neutral-200 py-1 px-4 "
+                >
+                  {type.type_name}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="mt-10">
             COLOR
@@ -72,7 +83,7 @@ export default function Collections() {
         </SidebarCollections>
         <ListCollections>
           <div className="flex justify-between">
-            <div>X products</div>
+            <div>{products.length} products</div>
             <div>Recommended</div>
           </div>
 
