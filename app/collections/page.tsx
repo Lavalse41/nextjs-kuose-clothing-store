@@ -1,15 +1,19 @@
 "use client";
 
+import React from "react";
 import { productType, color as colorData } from "../mockdata";
 import SidebarCollections from "../components/SidebarCollections";
 import ListCollections from "../components/ListCollections";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import DeleteIcon from "../components/DeleteIcon";
 
 export default function Collections() {
   const [products, setProducts] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [selected, setSelected] = useState(false);
 
   const colorName = colorData.map((color, index) => (
     <li
@@ -32,6 +36,31 @@ export default function Collections() {
     </li>
   ));
 
+  function handleAddFilter(typeId) {
+    try {
+      console.log(typeId);
+
+      // const newProductType = [...productTypes];
+      // const selectedType = newProductType.find((type) => type.id === typeId);
+
+      async function selectProductTypes(typeId) {
+        try {
+          const res = await axios.put(`../api/productTypes/${typeId}`, {
+            selected: !selected,
+          });
+          // setProductTypes(res.data);
+          setSelected(!selected);
+        } catch (error) {
+          console.error("Error updating product type:", error);
+        }
+      }
+
+      selectProductTypes(typeId);
+    } catch (error) {
+      console.error("Error adding filter:", error);
+    }
+  }
+
   useEffect(
     () =>
       async function getProductTypes() {
@@ -52,6 +81,8 @@ export default function Collections() {
     []
   );
 
+  console.log(selected);
+
   return (
     <div className="flex min-h-screen w-screen flex-col items-center py-24 px-20">
       <h1 className="mb-16 text-5xl capitalize">All Products</h1>
@@ -61,12 +92,25 @@ export default function Collections() {
           <div className="mt-4">
             <ul className="flex flex-wrap gap-2">
               {productTypes.map((type) => (
-                <li
+                // <li
+                //   key={type.id}
+                //   className="capitalize border border-1 border-neutral-200 py-1 px-4 "
+                // >
+
+                <div
                   key={type.id}
-                  className="capitalize border border-1 border-neutral-200 py-1 px-4 "
+                  className="relative"
+                  onClick={() => handleAddFilter(type.id)}
                 >
-                  {type.type_name}
-                </li>
+                  <li
+                    className={`capitalize border border-1 hover:cursor-pointer ${
+                      type.selected ? "border-black" : "border-neutral-200"
+                    }  py-1 px-4`}
+                  >
+                    {type.type_name}
+                  </li>
+                  {type.selected && <DeleteIcon />}
+                </div>
               ))}
             </ul>
           </div>
