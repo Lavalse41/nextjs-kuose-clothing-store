@@ -38,7 +38,6 @@ export async function PUT(req: Request, res: Response) {
       status: 200,
     });
   } catch (error) {
-    // console.error("Error updating product type:", error.message);
     return new Response(`Error updating data: ${error.message}`, {
       status: 500,
     });
