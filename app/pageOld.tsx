@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import { useEffect, useState } from "react";
-import SidebarCollections from "../components/SidebarCollections";
-import ListCollections from "../components/ListCollections";
 import axios from "axios";
+import { useEffect, useState } from "react";
+
+import SidebarCollections from "./components/Sidebar";
+import ListCollections from "./components/listings/ListingCollection";
 import Image from "next/image";
-import DeleteIcon from "../components/DeleteIcon";
-import NoProduct from "../components/NoProduct";
+import DeleteIcon from "./components/DeleteIcon";
+import NoProduct from "./components/NoProduct";
+// import { colorData } from "./data/colorData";
 
 type Type = {
   id: number;
@@ -37,7 +39,7 @@ type Product = {
   type: string;
 };
 
-export default function Collections() {
+export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [productTypes, setProductTypes] = useState<Type[]>([]);
   const [productColors, setProductColors] = useState<Color[]>([]);
@@ -143,15 +145,15 @@ export default function Collections() {
     []
   );
 
-  useEffect(
-    () =>
-      async function getColors() {
-        const res = await axios.get("../api/colors");
-        console.log("color:", res.data);
-        setProductColors(res.data);
-      },
-    []
-  );
+  // useEffect(
+  //   () =>
+  //     async function getColors() {
+  //       const res = await axios.get("../api/colors");
+  //       console.log("color:", res.data);
+  //       setProductColors(res.data);
+  //     },
+  //   []
+  // );
 
   useEffect(
     () =>
@@ -207,22 +209,30 @@ export default function Collections() {
             COLOR
             <div className="mt-4">
               <ul className="flex flex-wrap gap-2">
-                {productColors.map((color) => (
-                  <div
-                    key={color.id}
+                {colorData.map((color, index) => (
+                  <li
+                    key={index}
                     className="relative"
-                    onClick={() => handleAddFilter(color.id, "color")}
+                    // onClick={() => handleAddFilter(color.id, "color")}
                   >
-                    <li
-                      key={color.id}
-                      className={`w-24 border border-1 hover:cursor-pointer ${
-                        color.selected ? "border-black" : "border-neutral-200"
-                      } py-1 px-3`}
+                    <div
+                      className={`w-24 
+                      border 
+                      border-1 
+                      hover:cursor-pointer 
+                      ${color.selected ? "border-black" : "border-neutral-200"} 
+                      py-1 
+                      px-3`}
                     >
                       <div className="flex items-center">
-                        {color.src && (
-                          <span className="w-3 h-3 rounded-full border border-1 border-neutral-700">
-                            <img src={color.src}></img>
+                        {color.image && (
+                          <span className="overflow-hidden w-3 h-3 rounded-full border border-1 border-neutral-700">
+                            <Image
+                              width={10}
+                              height={10}
+                              src={color.image}
+                              alt={color.name}
+                            ></Image>
                           </span>
                         )}
                         {color.code && (
@@ -232,9 +242,9 @@ export default function Collections() {
                         )}
                         <span className="ml-1 capitalize">{color.name}</span>
                       </div>
-                    </li>
+                    </div>
                     {color.selected && <DeleteIcon />}
-                  </div>
+                  </li>
                 ))}
               </ul>
             </div>
