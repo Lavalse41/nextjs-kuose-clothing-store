@@ -1,22 +1,22 @@
 import Image from "next/image";
+import { IconContext } from "react-icons";
 import { IoIosClose } from "react-icons/io";
 
 interface FilterButtonProps {
   name: string;
   selected: boolean;
   image?: string;
+  onSelected: (value: string) => void;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   name,
   selected,
   image,
+  onSelected,
 }) => {
   return (
-    <li
-      className="relative"
-      //   onClick={() => handleAddFilter(color.id, "color")}
-    >
+    <li className="relative" onClick={() => onSelected(name)}>
       <div
         className={`min-w-24 
           border 
@@ -44,7 +44,34 @@ const FilterButton: React.FC<FilterButtonProps> = ({
           <span className="capitalize">{name}</span>
         </div>
       </div>
-      {selected && <IoIosClose />}
+      {selected && (
+        <div className="hover:cursor-pointer">
+          <IconContext.Provider value={{ color: "white" }}>
+            <div className="z-10 absolute bottom-5 right-0">
+              <IoIosClose />
+            </div>
+          </IconContext.Provider>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0"
+            y="0"
+            version="1"
+            viewBox="0 0 60 60"
+            className="absolute w-8 rotate-[-45deg] bottom-3 right-[-0.65rem]"
+          >
+            <path
+              fill="#000"
+              fillRule="evenodd"
+              stroke="#000"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3.125"
+              d="M17.834 55.31L42.166 30 17.834 4.69v50.62z"
+            ></path>
+          </svg>
+        </div>
+      )}
     </li>
   );
 };

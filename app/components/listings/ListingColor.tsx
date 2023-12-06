@@ -1,7 +1,11 @@
 import { colorData } from "../../data/colorData";
 import FilterButton from "../FilterButton";
 
-const ListingColor = () => {
+interface ListingColorProps {
+  onSelected: (value: string) => void;
+}
+
+const ListingColor: React.FC<ListingColorProps> = ({ onSelected }) => {
   return (
     <div className="mt-10">
       COLOR
@@ -13,6 +17,7 @@ const ListingColor = () => {
               name={color.name}
               selected={true}
               image={color.image}
+              onSelected={onSelected}
             />
           ))}
         </ul>

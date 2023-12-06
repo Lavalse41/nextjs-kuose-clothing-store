@@ -1,16 +1,21 @@
 "use client";
 
-import React from "react";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import qs from "query-string";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+
+import getProducts, { IParams } from "./actions/getProducts";
 
 import Sidebar from "./components/Sidebar";
 import ListingCollection from "./components/listings/ListingCollection";
-import Image from "next/image";
-import NoProduct from "./components/NoProduct";
+import EmptyPage from "./components/EmptyPage";
 import ListingType from "./components/listings/ListingType";
 import ListingColor from "./components/listings/ListingColor";
 import ProductCard from "./components/ProductCard";
+
+interface HomeProps {
+  searchParams: IParams;
+}
 
 type Product = {
   id: number;
@@ -24,17 +29,69 @@ type Product = {
   type: string;
 };
 
-export default function Home() {
+const Home = ({ searchParams }: HomeProps) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [selectedtype, setSelectedType] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>("");
+
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const getProducts = async () => {
-      const res = await axios.get("../api/collections");
-      // console.log("product:", res.data);
-      setProducts(res.data);
+    const onSubmit = async () => {
+      let currentQuery = {};
+
+      if (params) {
+        currentQuery = qs.parse(params.toString());
+      }
+
+      const updatedQuery: any = {
+        ...currentQuery,
+        type: selectedtype,
+        color: selectedColor,
+      };
+
+      if (params?.get("type") === selectedtype) {
+        //remove it if clicking on it
+        delete updatedQuery.type;
+      }
+
+      if (params?.get("color") === selectedColor) {
+        //remove it if clicking on it
+        delete updatedQuery.color;
+      }
+
+      const url = qs.stringifyUrl(
+        {
+          url: "/",
+          query: updatedQuery,
+        },
+        { skipNull: true }
+      );
+
+      if (url !== pathname) {
+        await router.push(url); // Wait for the router push to complete
+      }
     };
-    getProducts();
-  }, []);
+    onSubmit();
+  }, [selectedtype, selectedColor, params, router, pathname]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await getProducts(searchParams);
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    getData();
+  }, [searchParams]);
+
+  console.log(selectedtype);
+  console.log(selectedColor);
 
   return (
     <div
@@ -54,8 +111,12 @@ export default function Home() {
       gap-5"
       >
         <Sidebar>
-          <ListingType />
-          <ListingColor />
+          <ListingType
+            onSelected={(value) => {
+              setSelectedType(value);
+            }}
+          />
+          <ListingColor onSelected={(value) => setSelectedColor(value)} />
         </Sidebar>
         <ListingCollection>
           <div className="flex justify-between">
@@ -71,7 +132,8 @@ export default function Home() {
           grid-cols-4
           gap-5"
           >
-            {/* <NoProduct /> */}
+            {products.length === 0 && <EmptyPage />}
+
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -86,4 +148,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;

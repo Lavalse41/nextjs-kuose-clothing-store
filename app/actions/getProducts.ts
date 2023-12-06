@@ -1,11 +1,11 @@
-import supabase from "../../../supabase";
+import supabase from "@/supabase";
 
-interface IParams {
+export interface IParams {
   type?: string;
   color?: string;
 }
 
-export async function GET(request: Request, { params }: { params: IParams }) {
+export default async function getProducts(params: IParams) {
   try {
     const { type, color } = params;
 
@@ -30,7 +30,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       throw new Error(error.message);
     }
 
-    return Response.json(data);
+    return data;
   } catch (error: any) {
     throw new Error(error);
   }

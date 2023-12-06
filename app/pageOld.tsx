@@ -8,7 +8,7 @@ import SidebarCollections from "./components/Sidebar";
 import ListCollections from "./components/listings/ListingCollection";
 import Image from "next/image";
 import DeleteIcon from "./components/DeleteIcon";
-import NoProduct from "./components/NoProduct";
+import NoProduct from "./components/EmptyPage";
 // import { colorData } from "./data/colorData";
 
 type Type = {
