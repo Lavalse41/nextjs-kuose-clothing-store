@@ -11,7 +11,7 @@ import ListingType from "./components/listings/ListingType";
 import ListingColor from "./components/listings/ListingColor";
 import ProductCard from "./components/ProductCard";
 import Container from "./components/Container";
-import SortOption from "./components/SortOption";
+import SortSelect from "./components/SortSelect";
 
 interface HomeProps {
   searchParams: IParams;
@@ -37,7 +37,6 @@ const Home = ({ searchParams }: HomeProps) => {
     const getData = async () => {
       try {
         const data = await getProducts(searchParams);
-        console.log(data);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -46,8 +45,6 @@ const Home = ({ searchParams }: HomeProps) => {
 
     getData();
   }, [searchParams]);
-
-  let filteredData = products;
 
   return (
     <Container>
@@ -75,7 +72,7 @@ const Home = ({ searchParams }: HomeProps) => {
           <ListingCollection>
             <div className="flex justify-between">
               <div>{products.length} products</div>
-              <SortOption filteredData={filteredData} />
+              <SortSelect products={products} setProducts={setProducts} />
             </div>
 
             <div className="mt-12 flex justify-center">
