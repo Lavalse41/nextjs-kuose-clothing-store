@@ -1,82 +1,82 @@
 export const colorData = [
   {
-    name: "Black",
+    name: "black",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701688244/kuose-images/black_hdypdv.jpg",
   },
   {
-    name: "Beige",
+    name: "beige",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/khaki_ilr3mn.jpg",
   },
   {
-    name: "Pink",
+    name: "pink",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701688245/kuose-images/pink_t3ujkr.jpg",
   },
   {
-    name: "White",
+    name: "white",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/white_iuubsj.jpg",
   },
   {
-    name: "Blue",
+    name: "blue",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701688244/kuose-images/blue_ywhxni.jpg",
   },
   {
-    name: "Grey",
+    name: "grey",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/grey_jebvyu.jpg",
   },
   {
-    name: "Green",
+    name: "green",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764727/kuose-images/green_xa1731.jpg",
   },
   {
-    name: "Purple",
+    name: "purple",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/purple_eidafn.jpg",
   },
   {
-    name: "Yellow",
+    name: "yellow",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764729/kuose-images/yellow_b10oan.jpg",
   },
   {
-    name: "Red",
+    name: "red",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/red_rlvzi0.jpg",
   },
   {
-    name: "Plaid",
+    name: "plaid",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699671508/kuose-images/plaid-pattern_ljlijt.png",
   },
   {
-    name: "Khaki",
+    name: "khaki",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/khaki_ilr3mn.jpg",
   },
   {
-    name: "Orange",
+    name: "orange",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/orange_dwq0yc.jpg",
   },
   {
-    name: "Brown",
+    name: "brown",
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764727/kuose-images/brown_pxop60.jpg",
   },
   {
-    name: "Multi",
+    name: "multi",
     selected: false,
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699672063/kuose-images/multi-pattern_quamxx.jpg",
   },
   {
-    name: "Stripe",
+    name: "stripe",
 
     image:
       "https://res.cloudinary.com/dluc2m7kg/image/upload/v1699671508/kuose-images/plaid-pattern_ljlijt.png",

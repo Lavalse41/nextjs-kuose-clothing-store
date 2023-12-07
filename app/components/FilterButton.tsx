@@ -1,22 +1,71 @@
+"use client";
+
 import Image from "next/image";
 import { IconContext } from "react-icons";
 import { IoIosClose } from "react-icons/io";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
+import qs from "query-string";
+import { useFilter } from "../contexts/FilterContext";
 
 interface FilterButtonProps {
-  name: string;
+  color?: string;
+  type?: string;
   selected: boolean;
-  image?: string;
-  onSelected: (value: string) => void;
+  colorImage?: string;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
-  name,
+  color,
+  type,
   selected,
-  image,
-  onSelected,
+  colorImage,
 }) => {
+  const { selectedType, setSelectedType } = useFilter();
+  const router = useRouter();
+  const params = useSearchParams();
+
+  const handleClick = useCallback(() => {
+    let updatedTypes;
+
+    if (type) {
+      if (selectedType.includes(type)) {
+        // If the type is already selected, remove it
+        updatedTypes = selectedType.filter((selected) => selected !== type);
+      } else {
+        // If the type is not selected, add it
+        updatedTypes = [...selectedType, type];
+      }
+
+      setSelectedType(updatedTypes);
+    }
+
+    let currentQuery = {};
+
+    if (params) {
+      currentQuery = qs.parse(params.toString());
+    }
+
+    let updatedQuery = {
+      ...currentQuery,
+      type: updatedTypes,
+    };
+
+    const url = qs.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    );
+
+    console.log(selectedType);
+
+    router.push(url);
+  }, [params, router, selectedType, setSelectedType, type]);
+
   return (
-    <li className="relative" onClick={() => onSelected(name)}>
+    <li className="relative" onClick={handleClick}>
       <div
         className={`min-w-24 
           border 
@@ -28,7 +77,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
           `}
       >
         <div className="flex items-center">
-          {image && (
+          {colorImage && (
             <span
               className="overflow-hidden 
           w-3 
@@ -38,12 +87,19 @@ const FilterButton: React.FC<FilterButtonProps> = ({
         border-neutral-700
           mr-1"
             >
-              <Image width={10} height={10} src={image} alt={name}></Image>
+              <Image
+                width={10}
+                height={10}
+                src={colorImage}
+                alt={color}
+              ></Image>
             </span>
           )}
-          <span className="capitalize">{name}</span>
+          {color && <span className="capitalize">{color}</span>}
+          {type && <span className="capitalize">{type}</span>}
         </div>
       </div>
+      {/* delete button */}
       {selected && (
         <div className="hover:cursor-pointer">
           <IconContext.Provider value={{ color: "white" }}>

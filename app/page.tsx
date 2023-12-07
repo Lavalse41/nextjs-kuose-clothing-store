@@ -34,49 +34,7 @@ const Home = ({ searchParams }: HomeProps) => {
   const [selectedtype, setSelectedType] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
 
-  const params = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const onSubmit = async () => {
-      let currentQuery = {};
-
-      if (params) {
-        currentQuery = qs.parse(params.toString());
-      }
-
-      const updatedQuery: any = {
-        ...currentQuery,
-        type: selectedtype,
-        color: selectedColor,
-      };
-
-      if (params?.get("type") === selectedtype) {
-        //remove it if clicking on it
-        delete updatedQuery.type;
-      }
-
-      if (params?.get("color") === selectedColor) {
-        //remove it if clicking on it
-        delete updatedQuery.color;
-      }
-
-      const url = qs.stringifyUrl(
-        {
-          url: "/",
-          query: updatedQuery,
-        },
-        { skipNull: true }
-      );
-
-      if (url !== pathname) {
-        await router.push(url); // Wait for the router push to complete
-      }
-    };
-    onSubmit();
-  }, [selectedtype, selectedColor, params, router, pathname]);
-
+  //get products
   useEffect(() => {
     const getData = async () => {
       try {
@@ -111,21 +69,15 @@ const Home = ({ searchParams }: HomeProps) => {
       gap-5"
       >
         <Sidebar>
-          <ListingType
-            onSelected={(value) => {
-              setSelectedType(value);
-            }}
-          />
-          <ListingColor onSelected={(value) => setSelectedColor(value)} />
+          <ListingType />
+          <ListingColor />
         </Sidebar>
         <ListingCollection>
           <div className="flex justify-between">
-            {/* <div>0 products</div>
-        <div>{finalProducts.length} products</div> */}
+            <div>{products.length} products</div>
 
             <div>Recommended</div>
           </div>
-
           <div
             className="mt-12 
           grid 

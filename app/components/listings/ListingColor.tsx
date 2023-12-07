@@ -1,23 +1,23 @@
+import { useSearchParams } from "next/navigation";
+
 import { colorData } from "../../data/colorData";
 import FilterButton from "../FilterButton";
 
-interface ListingColorProps {
-  onSelected: (value: string) => void;
-}
+const ListingColor = () => {
+  const params = useSearchParams();
+  const colorParams = params?.get("color");
 
-const ListingColor: React.FC<ListingColorProps> = ({ onSelected }) => {
   return (
     <div className="mt-10">
       COLOR
       <div className="mt-4">
         <ul className="flex flex-wrap gap-2">
-          {colorData.map((color) => (
+          {colorData.map((color, index) => (
             <FilterButton
-              key={color.name}
-              name={color.name}
-              selected={true}
-              image={color.image}
-              onSelected={onSelected}
+              key={index}
+              color={color.name}
+              colorImage={color.image}
+              selected={colorParams === color.name}
             />
           ))}
         </ul>

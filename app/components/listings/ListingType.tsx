@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IoIosClose } from "react-icons/io";
-import FilterButton from "../FilterButton";
 
-import { useSearchParams } from "next/navigation";
+import FilterButton from "../FilterButton";
+import { useFilter } from "@/app/contexts/FilterContext";
 
 type Type = {
   id: number;
@@ -12,15 +11,10 @@ type Type = {
   created_at: string;
 };
 
-interface ListingTypeProps {
-  onSelected: (value: string) => void;
-}
+const ListingType = () => {
+  const { selectedType } = useFilter();
 
-const ListingType: React.FC<ListingTypeProps> = ({ onSelected }) => {
   const [productTypes, setProductTypes] = useState<Type[]>([]);
-
-  const params = useSearchParams();
-  const type = params?.get("type");
 
   useEffect(() => {
     const getProductTypes = async () => {
@@ -35,12 +29,11 @@ const ListingType: React.FC<ListingTypeProps> = ({ onSelected }) => {
     <div>
       <div className="mb-4">PRODUCT TYPE</div>
       <ul className="flex flex-wrap gap-2">
-        {productTypes.map((type) => (
+        {productTypes.map((type, index) => (
           <FilterButton
-            onSelected={onSelected}
-            key={type.name}
-            name={type.name}
-            selected={type === type.name}
+            key={index}
+            type={type.name}
+            selected={selectedType.includes(type.name)}
           />
         ))}
       </ul>
