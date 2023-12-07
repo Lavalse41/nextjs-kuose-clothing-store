@@ -5,7 +5,6 @@ import FilterButton from "../FilterButton";
 import { useFilter } from "@/app/contexts/FilterContext";
 
 const ListingColor = () => {
-  const params = useSearchParams();
   const { selectedColor } = useFilter();
 
   return (

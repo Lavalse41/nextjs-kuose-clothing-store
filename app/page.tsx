@@ -39,6 +39,7 @@ const Home = ({ searchParams }: HomeProps) => {
     const getData = async () => {
       try {
         const data = await getProducts(searchParams);
+        console.log(data);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);

@@ -19,7 +19,6 @@ const ListingType = () => {
   useEffect(() => {
     const getProductTypes = async () => {
       const res = await axios.get("../api/types");
-      // console.log("type:", res.data);
       setProductTypes(res.data);
     };
     getProductTypes();

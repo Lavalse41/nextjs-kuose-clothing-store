@@ -9,8 +9,6 @@ export default async function getProducts(params: IParams) {
   try {
     const { type, color } = params;
 
-    // console.log("Received request with params:", params);
-
     let query: any = {};
 
     if (type) {
@@ -20,11 +18,10 @@ export default async function getProducts(params: IParams) {
     if (color) {
       query.color_filter = color;
     }
-
     console.log("q:", query);
 
-    //if query is empty, return all products
-    if (Object.keys(query).length === 0 || !Array.isArray(type)) {
+    // if query is empty or has one type and no color
+    if (Object.keys(query).length === 0 || (!Array.isArray(type) && !color)) {
       const { data, error } = await supabase
         .from("products")
         .select("*")
@@ -33,26 +30,35 @@ export default async function getProducts(params: IParams) {
       return data;
     }
 
-    let queryResult = [];
-
-    for (let i = 0; i < query.type.length; i++) {
+    //if query has only color
+    if (!type && color) {
       const { data, error } = await supabase
         .from("products")
         .select("*")
-        .match({
-          type: query.type[i],
-        });
+        .contains("color_filter", [query.color_filter]);
 
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      queryResult.push(...data);
+      return data;
     }
 
-    console.log(queryResult);
+    //if query has one type and color
+    if (!Array.isArray(type) && color) {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .match({ type: type })
+        .contains("color_filter", [query.color_filter]);
 
-    return queryResult;
+      return data;
+    }
+
+    //if query has many types and colors
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .in("type", [...type])
+      .contains("color_filter", [query.color_filter]);
+
+    return data;
   } catch (error: any) {
     throw new Error(error);
   }

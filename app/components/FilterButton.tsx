@@ -61,7 +61,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 
       router.push(url);
 
-      console.log("ut:", updatedTypes);
+      console.log("updatedtype:", updatedTypes);
     }
 
     if (color) {
@@ -98,7 +98,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 
       router.push(url);
 
-      console.log("uc:", updatedColors);
+      console.log("updatedColor:", updatedColors);
     }
   }, [
     color,
