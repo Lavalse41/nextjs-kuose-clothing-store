@@ -9,7 +9,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const { type, color } = params;
 
-    console.log("Received request with params:", type, color);
+    // console.log("Received request with params:", type, color);
 
     let query: any = {};
 

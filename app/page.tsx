@@ -48,9 +48,6 @@ const Home = ({ searchParams }: HomeProps) => {
     getData();
   }, [searchParams]);
 
-  console.log(selectedtype);
-  console.log(selectedColor);
-
   return (
     <div
       className="flex 

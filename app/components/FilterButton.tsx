@@ -21,14 +21,15 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   selected,
   colorImage,
 }) => {
-  const { selectedType, setSelectedType } = useFilter();
+  const { selectedType, setSelectedType, selectedColor, setSelectedColor } =
+    useFilter();
   const router = useRouter();
   const params = useSearchParams();
 
   const handleClick = useCallback(() => {
-    let updatedTypes;
-
     if (type) {
+      let updatedTypes;
+
       if (selectedType.includes(type)) {
         // If the type is already selected, remove it
         updatedTypes = selectedType.filter((selected) => selected !== type);
@@ -38,31 +39,77 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       }
 
       setSelectedType(updatedTypes);
+
+      let currentQuery = {};
+
+      if (params) {
+        currentQuery = qs.parse(params.toString());
+      }
+
+      let updatedQuery = {
+        ...currentQuery,
+        type: updatedTypes,
+      };
+
+      const url = qs.stringifyUrl(
+        {
+          url: "/",
+          query: updatedQuery,
+        },
+        { skipNull: true }
+      );
+
+      router.push(url);
+
+      console.log("ut:", updatedTypes);
     }
 
-    let currentQuery = {};
+    if (color) {
+      let updatedColors;
 
-    if (params) {
-      currentQuery = qs.parse(params.toString());
+      if (selectedColor.includes(color)) {
+        // If the type is already selected, remove it
+        updatedColors = selectedColor.filter((selected) => selected !== color);
+      } else {
+        // If the type is not selected, add it
+        updatedColors = [...selectedColor, color];
+      }
+
+      setSelectedColor(updatedColors);
+
+      let currentQuery = {};
+
+      if (params) {
+        currentQuery = qs.parse(params.toString());
+      }
+
+      let updatedQuery = {
+        ...currentQuery,
+        color: updatedColors,
+      };
+
+      const url = qs.stringifyUrl(
+        {
+          url: "/",
+          query: updatedQuery,
+        },
+        { skipNull: true }
+      );
+
+      router.push(url);
+
+      console.log("uc:", updatedColors);
     }
-
-    let updatedQuery = {
-      ...currentQuery,
-      type: updatedTypes,
-    };
-
-    const url = qs.stringifyUrl(
-      {
-        url: "/",
-        query: updatedQuery,
-      },
-      { skipNull: true }
-    );
-
-    console.log(selectedType);
-
-    router.push(url);
-  }, [params, router, selectedType, setSelectedType, type]);
+  }, [
+    color,
+    params,
+    router,
+    selectedColor,
+    selectedType,
+    setSelectedColor,
+    setSelectedType,
+    type,
+  ]);
 
   return (
     <li className="relative" onClick={handleClick}>

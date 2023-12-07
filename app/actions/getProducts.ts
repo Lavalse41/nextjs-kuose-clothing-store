@@ -9,7 +9,7 @@ export default async function getProducts(params: IParams) {
   try {
     const { type, color } = params;
 
-    console.log("Received request with params:", params);
+    // console.log("Received request with params:", params);
 
     let query: any = {};
 
@@ -18,8 +18,10 @@ export default async function getProducts(params: IParams) {
     }
 
     if (color) {
-      query.color = color;
+      query.color_filter = color;
     }
+
+    console.log("q:", query);
 
     //if query is empty, return all products
     if (Object.keys(query).length === 0 || !Array.isArray(type)) {
@@ -30,8 +32,6 @@ export default async function getProducts(params: IParams) {
 
       return data;
     }
-
-    console.log(type);
 
     let queryResult = [];
 

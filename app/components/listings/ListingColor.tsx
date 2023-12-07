@@ -2,10 +2,11 @@ import { useSearchParams } from "next/navigation";
 
 import { colorData } from "../../data/colorData";
 import FilterButton from "../FilterButton";
+import { useFilter } from "@/app/contexts/FilterContext";
 
 const ListingColor = () => {
   const params = useSearchParams();
-  const colorParams = params?.get("color");
+  const { selectedColor } = useFilter();
 
   return (
     <div className="mt-10">
@@ -17,7 +18,7 @@ const ListingColor = () => {
               key={index}
               color={color.name}
               colorImage={color.image}
-              selected={colorParams === color.name}
+              selected={selectedColor.includes(color.name)}
             />
           ))}
         </ul>
