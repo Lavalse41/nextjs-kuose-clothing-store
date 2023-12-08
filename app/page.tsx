@@ -6,12 +6,13 @@ import getProducts, { IParams } from "./actions/getProducts";
 
 import Sidebar from "./components/Sidebar";
 import ListingCollection from "./components/listings/ListingCollection";
-import EmptyPage from "./components/EmptyPage";
+
 import ListingType from "./components/listings/ListingType";
 import ListingColor from "./components/listings/ListingColor";
 import ProductCard from "./components/ProductCard";
-import Container from "./components/Container";
 import SortSelect from "./components/SortSelect";
+import Container from "./components/Container";
+import EmptyPage from "./components/EmptyPage";
 
 interface HomeProps {
   searchParams: IParams;

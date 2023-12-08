@@ -1,8 +1,7 @@
 function EmptyPage() {
-  const symbol = "'";
   return (
     <div>
-      <div>Sorry, We couldn{symbol}t find any results</div>
+      <div className="font-semibold">Sorry, we could not find any results.</div>
     </div>
   );
 }
