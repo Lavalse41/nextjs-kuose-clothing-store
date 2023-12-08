@@ -138,7 +138,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
                 width={10}
                 height={10}
                 src={colorImage}
-                alt={color}
+                alt="image"
               ></Image>
             </span>
           )}
