@@ -52,13 +52,14 @@ export default async function getProducts(params: IParams) {
     }
 
     //if query has many types and colors
-    const { data, error } = await supabase
-      .from("products")
-      .select("*")
-      .in("type", [...type])
-      .contains("color_filter", [query.color_filter]);
-
-    return data;
+    if (Array.isArray(type) && color) {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .in("type", [...type])
+        .contains("color_filter", [query.color_filter]);
+      return data;
+    }
   } catch (error: any) {
     throw new Error(error);
   }
