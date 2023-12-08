@@ -4,7 +4,7 @@ interface ProductCardProps {
   productId: number;
   image: string;
   name: string;
-  price: number;
+  price: string | number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -13,19 +13,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   price,
 }) => {
+  const formattedPrice = parseFloat(price).toLocaleString("en-US");
+
   return (
-    <div key={productId} className="flex flex-col gap-4">
-      <div className="w-full h-96">
-        <Image
-          src={image}
-          width={100}
-          height={384}
-          alt={name}
-          layout="responsive"
-        ></Image>
+    <div className="col-span-1 cursor-pointer group">
+      <div key={productId} className="flex flex-col gap-4 w-full mb-6">
+        <div
+          className="
+            aspect-[3/4]
+            w-full 
+            relative 
+            overflow-hidden 
+          "
+        >
+          <Image
+            fill
+            src={image}
+            className="
+              object-cover 
+              w-full
+              h-full
+              group-hover:scale-110 
+              transition
+              duration-500 
+            "
+            alt={name}
+          ></Image>
+        </div>
+        <div className="pl-6">{name}</div>
+        <div className="pl-6 leading-none text-xl font-semibold">
+          {formattedPrice} ฿
+        </div>
       </div>
-      <div className="pl-6">{name}</div>
-      <div className="pl-6 leading-none">{price}</div>
     </div>
   );
 };

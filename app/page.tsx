@@ -33,6 +33,8 @@ const Home = ({ searchParams }: HomeProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   //get products
+
+  //ts.config ignore
   useEffect(() => {
     const getData = async () => {
       try {
@@ -49,7 +51,8 @@ const Home = ({ searchParams }: HomeProps) => {
   return (
     <Container>
       <div
-        className="flex 
+        className="
+          flex 
           flex-col 
           items-center
           py-24"
@@ -59,7 +62,7 @@ const Home = ({ searchParams }: HomeProps) => {
           className="
             grid 
             grid-cols-1 
-            sm:grid-cols-2 
+            sm:grid-cols-1 
             md:grid-cols-3 
             lg:grid-cols-4
             xl:grid-cols-5
@@ -80,9 +83,12 @@ const Home = ({ searchParams }: HomeProps) => {
             </div>
 
             <div
-              className="mt-8
+              className="
+                mt-8
                 grid 
-                grid-cols-4
+                md:grid-cols-2
+                lg:grid-cols-3
+                xl:grid-cols-4
                 gap-5"
             >
               {products.map((product) => (
