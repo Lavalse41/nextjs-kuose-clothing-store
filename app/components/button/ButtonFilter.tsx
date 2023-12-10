@@ -1,12 +1,12 @@
 interface ButtonFilterProps {
-  text: string;
+  label: string;
   rounded?: boolean;
   fill?: boolean;
   size: string;
 }
 
 const ButtonFilter: React.FC<ButtonFilterProps> = ({
-  text,
+  label,
   rounded,
   fill,
   size,
@@ -33,7 +33,7 @@ const ButtonFilter: React.FC<ButtonFilterProps> = ({
         ${size === "lg" && "font-semibold"}
         `}
     >
-      {text}
+      {label}
     </div>
   );
 };

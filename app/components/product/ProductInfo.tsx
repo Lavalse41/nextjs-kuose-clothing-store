@@ -24,7 +24,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {color.map((color) => {
             return (
               <div key={id} className="uppercase">
-                <ButtonFilter text={color} size="sm" rounded />
+                <ButtonFilter label={color} size="sm" rounded />
               </div>
             );
           })}
@@ -37,16 +37,16 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {size.map((size) => {
             return (
               <div key={id} className="uppercase w-11">
-                <ButtonFilter text={size} size="sm" rounded />{" "}
+                <ButtonFilter label={size} size="sm" rounded />{" "}
               </div>
             );
           })}
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 capitalize">
-        <ButtonFilter text="add to cart" size="lg" />
-        <ButtonFilter text="buy now" size="lg" fill />
+      <div className="mt-8 space-y-3 capitalize">
+        <ButtonFilter label="add to cart" size="lg" />
+        <ButtonFilter label="buy now" size="lg" fill />
       </div>
     </div>
   );

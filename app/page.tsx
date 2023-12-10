@@ -14,6 +14,7 @@ import ProductCard from "./components/ProductCard";
 import SortSelect from "./components/SortSelect";
 import Container from "./components/Container";
 import EmptyPage from "./components/EmptyPage";
+import Heading from "./components/Heading";
 
 interface HomeProps {
   searchParams: IParams;
@@ -51,9 +52,9 @@ const Home = ({ searchParams }: HomeProps) => {
           flex 
           flex-col 
           items-center
-          py-24"
+          "
       >
-        <h1 className="mb-16 text-5xl capitalize">All Products</h1>
+        <Heading title="All Products" />
         <div
           className="
             grid 

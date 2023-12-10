@@ -16,31 +16,23 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
     <Container>
       <div
         className="
-          py-24"
-      >
-        <div
-          className="
           grid 
           grid-cols-5
           gap-16"
-        >
-          <ProductImage name={product.name} images={product.images} />
+      >
+        <ProductImage name={product.name} images={product.images} />
 
-          <div
-            className="
+        <div
+          className="
               col-span-3"
-          >
-            <ProductHead
-              name={product.name}
-              description={product.description}
-            />
-            <ProductInfo
-              id={product.id}
-              price={product.price}
-              color={product.color}
-              size={product.size}
-            />
-          </div>
+        >
+          <ProductHead name={product.name} description={product.description} />
+          <ProductInfo
+            id={product.id}
+            price={product.price}
+            color={product.color}
+            size={product.size}
+          />
         </div>
       </div>
     </Container>
