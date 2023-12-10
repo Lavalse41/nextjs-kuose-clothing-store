@@ -18,7 +18,8 @@ export default async function getProducts(params: IParams) {
     if (color) {
       query.color_filter = color;
     }
-    console.log("q:", query);
+
+    console.log(query);
 
     // if query is empty or has one type and no color
     if (Object.keys(query).length === 0 || (!Array.isArray(type) && !color)) {

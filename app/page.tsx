@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 
 import getProducts, { IParams } from "./actions/getProducts";
 
+import { SafeProduct } from "./types";
+
 import Sidebar from "./components/Sidebar";
 import ListingCollection from "./components/listings/ListingCollection";
-
 import ListingType from "./components/listings/ListingType";
 import ListingColor from "./components/listings/ListingColor";
 import ProductCard from "./components/ProductCard";
@@ -18,20 +19,8 @@ interface HomeProps {
   searchParams: IParams;
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  created_at: string;
-  images: string[];
-  color: string[];
-  size: string[];
-  description: string;
-  price: number;
-  type: string;
-}
-
 const Home = ({ searchParams }: HomeProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<SafeProduct[]>([]);
 
   //get products
 

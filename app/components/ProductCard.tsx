@@ -1,11 +1,17 @@
 import Image from "next/image";
 
+import { useRouter } from "next/navigation";
+
 interface ProductCardProps {
   productId: number;
   image: string;
   name: string;
-  price: string | number;
+  price: string;
 }
+
+export const formattedPrice = (price: string) => {
+  return parseFloat(price).toLocaleString("en-US");
+};
 
 const ProductCard: React.FC<ProductCardProps> = ({
   productId,
@@ -13,10 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   price,
 }) => {
-  const formattedPrice = parseFloat(price).toLocaleString("en-US");
+  const router = useRouter();
 
   return (
-    <div className="col-span-1 cursor-pointer group">
+    <div
+      className="col-span-1 cursor-pointer group"
+      onClick={() => router.push(`/products/${productId}`)}
+    >
       <div key={productId} className="flex flex-col gap-4 w-full mb-6">
         <div
           className="
@@ -42,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div className="pl-6">{name}</div>
         <div className="pl-6 leading-none text-xl font-semibold">
-          {formattedPrice} ฿
+          {formattedPrice(price)} ฿
         </div>
       </div>
     </div>

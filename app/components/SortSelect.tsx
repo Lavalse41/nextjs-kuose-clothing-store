@@ -1,8 +1,8 @@
-import { Product } from "../page";
+import { SafeProduct } from "@/app/types";
 
 interface SortSelecProps {
-  products: Product[];
-  setProducts: (value: Product[]) => void;
+  products: SafeProduct[];
+  setProducts: (value: SafeProduct[]) => void;
 }
 
 const SortSelect: React.FC<SortSelecProps> = ({ products, setProducts }) => {
