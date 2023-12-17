@@ -7,7 +7,7 @@ export const colorData = [
   {
     name: "beige",
     image:
-      "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701764728/kuose-images/khaki_ilr3mn.jpg",
+      "https://res.cloudinary.com/dluc2m7kg/image/upload/v1701688244/kuose-images/beige_jjwgui.jpg",
   },
   {
     name: "pink",

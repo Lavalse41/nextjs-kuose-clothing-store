@@ -20,9 +20,12 @@ const CartPage = () => {
             grid 
             grid-cols-1 
             xl:grid-cols-3
-            gap-8"
+            gap-24"
         >
-          <CartProductCard />
+          <div className="col-span-2">
+            <CartProductCard />
+            <CartProductCard />
+          </div>
           <CartSummary />
         </div>
       </div>
